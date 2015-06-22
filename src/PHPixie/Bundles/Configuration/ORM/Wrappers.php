@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPixie\Framework\Bundles\ORM;
+namespace PHPixie\Bundles\Configuration\ORM;
 
 class Wrappers
 {
