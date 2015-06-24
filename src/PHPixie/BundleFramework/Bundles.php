@@ -2,7 +2,7 @@
 
 namespace PHPixie\Framework;
 
-abstract class Bundles
+abstract class Bundles implements \PHPixie\Bundles\Registry
 {
     protected $builder;
     protected $instances = array();
