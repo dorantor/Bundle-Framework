@@ -1,11 +1,11 @@
 <?php
 
-namespace PHPixie\Tests\BundleFramework\Dispatcher;
+namespace PHPixie\Tests\BundleFramework\Processor;
 
 /**
- * @coversDefaultClass \PHPixie\BundleFramework\Dispatcher\HTTP
+ * @coversDefaultClass \PHPixie\BundleFramework\Processor\HTTP
  */
-class HTTPTest extends \PHPixie\Tests\BundleFramework\DispatcherTest
+class HTTPTest extends \PHPixie\Tests\BundleFramework\ProcessorTest
 {
     /**
      * @covers ::process
@@ -37,13 +37,13 @@ class HTTPTest extends \PHPixie\Tests\BundleFramework\DispatcherTest
     
     protected function dispatcher()
     {
-        return new \PHPixie\BundleFramework\Dispatcher\HTTP($this->registry);
+        return new \PHPixie\BundleFramework\Processor\HTTP($this->registry);
     }
     
     protected function dispatcherMock($methods = array())
     {
         return $this->getMock(
-            '\PHPixie\BundleFramework\Dispatcher\HTTP',
+            '\PHPixie\BundleFramework\Processor\HTTP',
             $methods,
             array($this->registry)
         );

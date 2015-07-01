@@ -1,8 +1,8 @@
 <?php
 
-namespace PHPixie\BundleFramework\Dispatcher;
+namespace PHPixie\BundleFramework\Processor;
 
-class HTTP extends \PHPixie\BundleFramework\Dispatcher
+class HTTP extends \PHPixie\BundleFramework\Processor
 {
     protected function getProcessorNameFor($httpRequest)
     {

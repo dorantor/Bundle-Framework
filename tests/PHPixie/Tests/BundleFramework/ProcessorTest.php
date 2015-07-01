@@ -3,7 +3,7 @@
 namespace PHPixie\Tests\BundleFramework;
 
 /**
- * @coversDefaultClass \PHPixie\BundleFramework\Dispatcher
+ * @coversDefaultClass \PHPixie\BundleFramework\Processor
  */
 abstract class DispatcherTest extends \PHPixie\Tests\Processors\Processor\Dispatcher\RegistryTest
 {

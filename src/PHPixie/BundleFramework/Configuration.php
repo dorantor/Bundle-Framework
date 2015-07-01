@@ -2,10 +2,14 @@
 
 namespace PHPixie\Bundles;
 
-class Configuration
+class Configuration implements \PHPixie\Framework\Configuration
 {
+    public function filesystemRoot()
+    {
+        return $this->instance('filesystemRoot');
+    }
     
-    public function httpDispatcher()
+    public function httpProcessor()
     {
         return $this->bundles()->httpDispatcher();
     }
@@ -40,6 +44,17 @@ class Configuration
         $config = $this->builder->components->config();
         $directory = $this->filesystemRoot()->path('assets');
         return $config->directory($directory, 'config');
+    }
+    
+    protected function buildFilesystemRoot()
+    {
+        $rootDir = $this->getRootDirectory();
+        return $this->components->filesystem->root($rootDir);
+    }
+    
+    protected function getRootDirectory()
+    {
+        return realpath(__DIR__.'/../../../');
     }
     
     protected function bundles()
