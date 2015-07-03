@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPixie/Bundles.git",
-                "reference": "877291a399a799c3d553246503e68b8d7e1b8c1b"
+                "reference": "c889d69e044c9d7421a6ca79feb21086ff8c057b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPixie/Bundles/zipball/877291a399a799c3d553246503e68b8d7e1b8c1b",
-                "reference": "877291a399a799c3d553246503e68b8d7e1b8c1b",
+                "url": "https://api.github.com/repos/PHPixie/Bundles/zipball/c889d69e044c9d7421a6ca79feb21086ff8c057b",
+                "reference": "c889d69e044c9d7421a6ca79feb21086ff8c057b",
                 "shasum": ""
             },
             "require": {
@@ -62,7 +62,7 @@
                 "http",
                 "psr-7"
             ],
-            "time": "2015-06-24 09:59:52"
+            "time": "2015-07-02 16:46:25"
         },
         {
             "name": "phpixie/config",
@@ -275,12 +275,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPixie/Framework.git",
-                "reference": "a30d75c1c6f150d284e9d57b63fbd5b984d534a5"
+                "reference": "6ffaba21bd0536bed2f56246f77429d5e7fe624a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPixie/Framework/zipball/a30d75c1c6f150d284e9d57b63fbd5b984d534a5",
-                "reference": "a30d75c1c6f150d284e9d57b63fbd5b984d534a5",
+                "url": "https://api.github.com/repos/PHPixie/Framework/zipball/6ffaba21bd0536bed2f56246f77429d5e7fe624a",
+                "reference": "6ffaba21bd0536bed2f56246f77429d5e7fe624a",
                 "shasum": ""
             },
             "require": {
@@ -328,7 +328,7 @@
             "keywords": [
                 "processors"
             ],
-            "time": "2015-06-29 14:23:29"
+            "time": "2015-07-03 17:11:31"
         },
         {
             "name": "phpixie/http",
@@ -388,12 +388,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPixie/HTTP-Processors.git",
-                "reference": "093f71bdedcb442ac8c0cf3038488d857649a687"
+                "reference": "0a7ed23ee1957a5f5d8de8861f87acc0dee3db89"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPixie/HTTP-Processors/zipball/093f71bdedcb442ac8c0cf3038488d857649a687",
-                "reference": "093f71bdedcb442ac8c0cf3038488d857649a687",
+                "url": "https://api.github.com/repos/PHPixie/HTTP-Processors/zipball/0a7ed23ee1957a5f5d8de8861f87acc0dee3db89",
+                "reference": "0a7ed23ee1957a5f5d8de8861f87acc0dee3db89",
                 "shasum": ""
             },
             "require": {
@@ -433,7 +433,7 @@
             "keywords": [
                 "processors"
             ],
-            "time": "2015-06-18 11:57:22"
+            "time": "2015-07-01 11:37:00"
         },
         {
             "name": "phpixie/orm",
@@ -644,12 +644,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPixie/Template.git",
-                "reference": "e14a0098d48266eda23e29132cab79cfcf86e199"
+                "reference": "a8db854c8ecff3ed7d65c932c0473b5bd914a757"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPixie/Template/zipball/e14a0098d48266eda23e29132cab79cfcf86e199",
-                "reference": "e14a0098d48266eda23e29132cab79cfcf86e199",
+                "url": "https://api.github.com/repos/PHPixie/Template/zipball/a8db854c8ecff3ed7d65c932c0473b5bd914a757",
+                "reference": "a8db854c8ecff3ed7d65c932c0473b5bd914a757",
                 "shasum": ""
             },
             "require": {
@@ -688,7 +688,7 @@
                 "template",
                 "templating"
             ],
-            "time": "2015-06-25 12:56:55"
+            "time": "2015-07-02 20:31:04"
         },
         {
             "name": "psr/http-message",
