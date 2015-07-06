@@ -13,7 +13,7 @@ class ComponentsTest extends \PHPixie\Tests\Framework\ComponentsTest
      */
     public function testBundles()
     {
-        $bundles = $this->quickMock('\PHPixie\BundleFramework\Bundles');
+        $bundles = $this->abstractMock('\PHPixie\BundleFramework\Bundles');
         $this->method($this->builder, 'bundles', $bundles, array(), 0);
         
         $this->assertComponent('bundles', '\PHPixie\Bundles', array(

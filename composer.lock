@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPixie/Bundles.git",
-                "reference": "330e625ba046b055afa7e853e76fa3b2f7f6a310"
+                "reference": "1228f2d40aefd7230061fd2a00fe0cd8a4c964e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPixie/Bundles/zipball/330e625ba046b055afa7e853e76fa3b2f7f6a310",
-                "reference": "330e625ba046b055afa7e853e76fa3b2f7f6a310",
+                "url": "https://api.github.com/repos/PHPixie/Bundles/zipball/1228f2d40aefd7230061fd2a00fe0cd8a4c964e0",
+                "reference": "1228f2d40aefd7230061fd2a00fe0cd8a4c964e0",
                 "shasum": ""
             },
             "require": {
@@ -62,7 +62,7 @@
                 "http",
                 "psr-7"
             ],
-            "time": "2015-07-03 12:22:27"
+            "time": "2015-07-05 18:21:36"
         },
         {
             "name": "phpixie/config",

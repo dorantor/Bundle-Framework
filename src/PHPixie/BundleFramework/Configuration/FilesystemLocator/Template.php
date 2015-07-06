@@ -1,8 +1,8 @@
 <?php
 
-namespace PHPixie\BundleFramework\FilesystemLocator;
+namespace PHPixie\BundleFramework\Configuration\FilesystemLocator;
 
-class Template extends \PHPixie\BundleFramework\FilesystemLocator
+class Template extends \PHPixie\BundleFramework\Configuration\FilesystemLocator
 {
     protected $assets;
     

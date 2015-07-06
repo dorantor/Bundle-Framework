@@ -1,9 +1,9 @@
 <?php
 
-namespace PHPixie\Tests\Framework\Bundles\ORM;
+namespace PHPixie\Tests\BundleFramework\Configuration\ORM;
 
 /**
- * @coversDefaultClass \PHPixie\Framework\Bundles\ORM\Wrappers
+ * @coversDefaultClass \PHPixie\BundleFramework\Configuration\ORM\Wrappers
  */
 class WrappersTest extends \PHPixie\Test\Testcase
 {
@@ -21,17 +21,11 @@ class WrappersTest extends \PHPixie\Test\Testcase
     
     public function setUp()
     {
-        $ormWrappersBundles = array();
+        $ormWrappers = array();
         
         $bundleNames = array('trixie', 'stella');
         foreach($bundleNames as $name) {
-            $bundle = $this->quickMock('\PHPixie\Framework\Bundles\Bundle\Provides\ORMWrappers');
-            $ormWrappersBundles[] = $bundle;
-            
-            $this->method($bundle, 'name', $name, array());
-            
             $wrappers = $this->quickMock('\PHPixie\ORM\Wrappers');
-            $this->method($bundle, 'ormWrappers', $wrappers, array());
             $this->wrappersMap[$name] = $wrappers;
             
             foreach($this->typeSuffixes as $type => $suffix) {
@@ -40,8 +34,11 @@ class WrappersTest extends \PHPixie\Test\Testcase
             }
         }
         
-        $this->wrappers = new \PHPixie\Framework\Bundles\ORM\Wrappers(
-            $ormWrappersBundles
+        $bundlesOrm = $this->quickMock('\PHPixie\Bundles\ORM');
+        $this->method($bundlesOrm, 'wrappersMap', $this->wrappersMap, array(), 0);
+        
+        $this->wrappers = new \PHPixie\BundleFramework\Configuration\ORM\Wrappers(
+            $bundlesOrm
         );
     }
     
@@ -70,11 +67,6 @@ class WrappersTest extends \PHPixie\Test\Testcase
             }
             
             $this->assertSame($expect, $this->wrappers->$type());
-        }
-        
-        $this->wrappers = new \PHPixie\Framework\Bundles\ORM\Wrappers();
-        foreach(array_keys($this->typeSuffixes) as $type) {
-            $this->assertSame(array(), $this->wrappers->$type());
         }
     }
     

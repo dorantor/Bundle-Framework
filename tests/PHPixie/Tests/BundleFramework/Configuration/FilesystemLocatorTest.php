@@ -1,9 +1,9 @@
 <?php
 
-namespace PHPixie\Tests\BundleFramework;
+namespace PHPixie\Tests\BundleFramework\Configuration;
 
 /**
- * @coversDefaultClass \PHPixie\BundleFramework\FilesystemLocator
+ * @coversDefaultClass \PHPixie\BundleFramework\Configuration\FilesystemLocator
  */
 class FilesystemLocatorTest extends \PHPixie\Test\Testcase
 {
@@ -22,7 +22,7 @@ class FilesystemLocatorTest extends \PHPixie\Test\Testcase
     
     /**
      * @covers ::__construct
-     * @covers \PHPixie\BundleFramework\FilesystemLocator::__construct
+     * @covers \PHPixie\BundleFramework\Configuration\FilesystemLocator::__construct
      * @covers ::<protected>
      */
     public function testConstruct()
@@ -127,7 +127,7 @@ class FilesystemLocatorTest extends \PHPixie\Test\Testcase
     
     protected function filesystemLocator($withOverride = true)
     {
-        return new \PHPixie\BundleFramework\FilesystemLocator(
+        return new \PHPixie\BundleFramework\Configuration\FilesystemLocator(
             $this->bundleLocators,
             $withOverride ? $this->overrideLocator : null
         );

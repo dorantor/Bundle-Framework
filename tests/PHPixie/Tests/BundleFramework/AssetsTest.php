@@ -57,7 +57,7 @@ class AssetsTest extends \PHPixie\Tests\Framework\AssetsTest
     }
     
     /**
-     * @covers ::config
+     * @covers ::configStorage
      * @covers ::<protected>
      */
     public function testConfig()
@@ -72,7 +72,7 @@ class AssetsTest extends \PHPixie\Tests\Framework\AssetsTest
         $this->method($config, 'directory', $configData, array('/trixie', 'config'), 0);
         
         for($i=0; $i<2; $i++) {
-            $this->assertSame($configData, $this->assets->config());
+            $this->assertSame($configData, $this->assets->configStorage());
         }
     }
     

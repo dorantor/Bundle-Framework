@@ -19,9 +19,9 @@ abstract class Assets extends \PHPixie\Framework\Assets
         return $this->instance('webRoot');
     }
     
-    public function config()
+    public function configStorage()
     {
-        return $this->instance('config');
+        return $this->instance('configStorage');
     }
     
     protected function buildRoot()
@@ -45,7 +45,7 @@ abstract class Assets extends \PHPixie\Framework\Assets
         );
     }
     
-    protected function buildConfig()
+    protected function buildConfigStorage()
     {
         $config = $this->components->config();
         

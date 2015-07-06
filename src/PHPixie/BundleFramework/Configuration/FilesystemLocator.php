@@ -1,6 +1,6 @@
 <?php
 
-namespace PHPixie\BundleFramework;
+namespace PHPixie\BundleFramework\Configuration;
 
 class FilesystemLocator implements \PHPixie\Filesystem\Locators\Locator
 {

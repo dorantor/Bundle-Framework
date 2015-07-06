@@ -1,11 +1,11 @@
 <?php
 
-namespace PHPixie\Tests\BundleFramework\FilesystemLocator;
+namespace PHPixie\Tests\BundleFramework\Configuration\FilesystemLocator;
 
 /**
- * @coversDefaultClass \PHPixie\BundleFramework\FilesystemLocator\Template
+ * @coversDefaultClass \PHPixie\BundleFramework\Configuration\FilesystemLocator\Template
  */
-class TemplateTest extends \PHPixie\Tests\BundleFramework\FilesystemLocatorTest
+class TemplateTest extends \PHPixie\Tests\BundleFramework\Configuration\FilesystemLocatorTest
 {
     protected $assets;
     
@@ -42,7 +42,7 @@ class TemplateTest extends \PHPixie\Tests\BundleFramework\FilesystemLocatorTest
     
     protected function filesystemLocator($withOverride = true)
     {
-        return new \PHPixie\BundleFramework\FilesystemLocator\Template(
+        return new \PHPixie\BundleFramework\Configuration\FilesystemLocator\Template(
             $this->bundleLocators,
             $this->assets,
             $withOverride ? $this->overrideLocator : null

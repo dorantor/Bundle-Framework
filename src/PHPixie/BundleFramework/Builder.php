@@ -14,6 +14,7 @@ abstract class Builder extends \PHPixie\Framework\Builder
         return new Components($this);
     }
     
+    public function assets(){}
 
     
     abstract protected function buildBundles();

@@ -1,30 +1,28 @@
 <?php
 
-namespace PHPixie\BundleFramework;
+namespace PHPixie\BundleFramework\Configuration;
 
 class ORM
 {
     protected $slice;
     protected $bundlesOrm;
-    protected $configData;
     
     protected $instances = array();
     
-    public function __construct($slice, $bundlesOrm, $configData)
+    public function __construct($slice, $bundlesOrm)
     {
         $this->slice      = $slice;
         $this->bundlesOrm = $bundlesOrm;
-        $this->configData = $configData;
     }
     
     public function configData()
     {
-        return $this->configData;
+        return $this->instance('configData');
     }
     
     public function wrappers()
     {
-        return $this->wrappers;
+        return $this->instance('wrappers');
     }
     
     protected function instance($name)
@@ -37,23 +35,22 @@ class ORM
         return $this->instances[$name];
     }
     
-    protected function buildConfig()
+    protected function buildConfigData()
     {
         $configMap = $this->bundlesOrm->configMap();
         
         $models = array();
+        $relationships = array();
+        
         foreach($configMap as $configData) {
             $modelsData = $configData->get('models', array());
             foreach($modelsData as $name => $modelData) {
-                $models[$key] => $modelData;
+                $models[$name] = $modelData;
             }
-        }
-        
-        $relationships = array();
-        foreach($configMap as $configData) {
+            
             $relationshipsData = $configData->get('relationships', array());
             foreach($relationshipsData as $relationshipData) {
-                $relationships[] => $relationshipData;
+                $relationships[] = $relationshipData;
             }
         }
         
