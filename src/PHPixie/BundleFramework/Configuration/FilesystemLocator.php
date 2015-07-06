@@ -2,7 +2,7 @@
 
 namespace PHPixie\BundleFramework;
 
-abstract class FilesystemLocator implements \PHPixie\Filesystem\Locators\Locator
+class FilesystemLocator implements \PHPixie\Filesystem\Locators\Locator
 {
     protected $bundleLocators;
     protected $overrideLocator;
@@ -23,12 +23,14 @@ abstract class FilesystemLocator implements \PHPixie\Filesystem\Locators\Locator
         }
         
         $split = explode(':', $name, 2);
-        if(count($split) !==2 ) {
+        if(count($split) !== 2 ) {
             return null;
         }
         
         list($locatorName, $name) = $split;
+        
         $locator = $this->getLocator($locatorName);
+        
         if($locator === null) {
             return null;
         }
@@ -43,15 +45,6 @@ abstract class FilesystemLocator implements \PHPixie\Filesystem\Locators\Locator
     
     protected function getBundleLocator($name)
     {
-        return $this->bundleLocators->get($name, false);
-    }
-    
-    protected function locator()
-    {
-        if(!$this->overrideLocatorProcessed) {
-            
-        }
-        
-        return $this->locator;
+        return $this->bundleLocators->bundleLocator($name, false);
     }
 }

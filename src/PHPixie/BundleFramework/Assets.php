@@ -4,52 +4,56 @@ namespace PHPixie\BundleFramework;
 
 abstract class Assets extends \PHPixie\Framework\Assets
 {
-    
-   public function projectRoot()
+    public function root()
     {
-        return $this->instance('projectRoot');
+        return $this->instance('root');
     }
     
-    public function projectAssetsRoot()
+    public function assetsRoot()
     {
-        return $this->instance('projectAssetsRoot');
+        return $this->instance('assetsRoot');
     }
     
-    public function projectWebRoot()
+    public function webRoot()
     {
-        return $this->instance('projectWebRoot');
+        return $this->instance('webRoot');
+    }
+    
+    public function config()
+    {
+        return $this->instance('config');
+    }
+    
+    protected function buildRoot()
+    {
+        return $this->buildFilesystemRoot(
+            $this->getRootDirectory()
+        );
+    }
+    
+    protected function buildAssetsRoot()
+    {
+        return $this->buildFilesystemRoot(
+            $this->Root()->path('assets')
+        );
+    }
+    
+    protected function buildWebRoot()
+    {
+        return $this->buildFilesystemRoot(
+            $this->Root()->path('web')
+        );
     }
     
     protected function buildConfig()
     {
         $config = $this->components->config();
         
-        return $this->config->directory(
+        return $config->directory(
             $this->assetsRoot()->path(),
             'config'
         );
     }
     
-    protected function buildProjectRoot()
-    {
-        return $this->buildFilesystemRoot(
-            $this->getProjectRootDirectory()
-        );
-    }
-    
-    protected function buildProjectAssetsRoot()
-    {
-        return $this->buildFilesystemRoot(
-            $this->projectRoot()->path('assets')
-        );
-    }
-    
-    protected function buildProjectWebRoot()
-    {
-        return $this->buildFilesystemRoot(
-            $this->projectRoot()->path('web')
-        );
-    }
-    
-    abstract protected function getProjectRootDirectory();
+    abstract protected function getRootDirectory();
 }

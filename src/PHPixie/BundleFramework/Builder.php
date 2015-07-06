@@ -2,7 +2,7 @@
 
 namespace PHPixie\BundleFramework;
 
-class Builder extends \PHPixie\Framework\Builder
+abstract class Builder extends \PHPixie\Framework\Builder
 {
     public function bundles()
     {

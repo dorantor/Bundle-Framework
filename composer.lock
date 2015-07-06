@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPixie/Bundles.git",
-                "reference": "c889d69e044c9d7421a6ca79feb21086ff8c057b"
+                "reference": "330e625ba046b055afa7e853e76fa3b2f7f6a310"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPixie/Bundles/zipball/c889d69e044c9d7421a6ca79feb21086ff8c057b",
-                "reference": "c889d69e044c9d7421a6ca79feb21086ff8c057b",
+                "url": "https://api.github.com/repos/PHPixie/Bundles/zipball/330e625ba046b055afa7e853e76fa3b2f7f6a310",
+                "reference": "330e625ba046b055afa7e853e76fa3b2f7f6a310",
                 "shasum": ""
             },
             "require": {
@@ -62,7 +62,7 @@
                 "http",
                 "psr-7"
             ],
-            "time": "2015-07-02 16:46:25"
+            "time": "2015-07-03 12:22:27"
         },
         {
             "name": "phpixie/config",
@@ -275,12 +275,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPixie/Framework.git",
-                "reference": "6ffaba21bd0536bed2f56246f77429d5e7fe624a"
+                "reference": "5417fe2969dedf91ce282091f77f1db789ec1eee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPixie/Framework/zipball/6ffaba21bd0536bed2f56246f77429d5e7fe624a",
-                "reference": "6ffaba21bd0536bed2f56246f77429d5e7fe624a",
+                "url": "https://api.github.com/repos/PHPixie/Framework/zipball/5417fe2969dedf91ce282091f77f1db789ec1eee",
+                "reference": "5417fe2969dedf91ce282091f77f1db789ec1eee",
                 "shasum": ""
             },
             "require": {
@@ -328,7 +328,7 @@
             "keywords": [
                 "processors"
             ],
-            "time": "2015-07-03 17:11:31"
+            "time": "2015-07-03 17:34:37"
         },
         {
             "name": "phpixie/http",

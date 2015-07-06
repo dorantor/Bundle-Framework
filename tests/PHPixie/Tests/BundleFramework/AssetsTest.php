@@ -8,36 +8,71 @@ namespace PHPixie\Tests\BundleFramework;
 class AssetsTest extends \PHPixie\Tests\Framework\AssetsTest
 {
     /**
-     * @covers ::projectAssetsRoot
+     * @covers ::root
      * @covers ::<protected>
      */
-    public function testProjectAssetsRoot()
+    public function testRoot()
     {
-        $this->assets = $this->assetsMock(array('projectRoot'));
-        $projectRoot  = $this->prepareRoot('projectRoot');
-        
-        $this->method($projectRoot, 'path', '/trixie', array('assets'), 0);
+        $this->assets = $this->assetsMock(array('getRootDirectory'));
+        $this->method($this->assets, 'getRootDirectory', '/trixie', array(), 0);
         $root = $this->preparebuildFilesystemRoot('/trixie');
         
         for($i=0; $i<2; $i++) {
-            $this->assertSame($root, $this->assets->projectAssetsRoot());
+            $this->assertSame($root, $this->assets->root());
         }
     }
     
     /**
-     * @covers ::projectWebRoot
+     * @covers ::assetsRoot
      * @covers ::<protected>
      */
-    public function testProjectWebRoot()
+    public function testAssetsRoot()
     {
-        $this->assets = $this->assetsMock(array('projectRoot'));
-        $projectRoot  = $this->prepareRoot('projectRoot');
+        $this->assets = $this->assetsMock(array('root'));
+        $root = $this->prepareRoot('root');
         
-        $this->method($projectRoot, 'path', '/trixie', array('web'), 0);
+        $this->method($root, 'path', '/trixie', array('assets'), 0);
         $root = $this->preparebuildFilesystemRoot('/trixie');
         
         for($i=0; $i<2; $i++) {
-            $this->assertSame($root, $this->assets->projectWebRoot());
+            $this->assertSame($root, $this->assets->assetsRoot());
+        }
+    }
+    
+    /**
+     * @covers ::webRoot
+     * @covers ::<protected>
+     */
+    public function testWebRoot()
+    {
+        $this->assets = $this->assetsMock(array('root'));
+        $root = $this->prepareRoot('root');
+        
+        $this->method($root, 'path', '/trixie', array('web'), 0);
+        $root = $this->preparebuildFilesystemRoot('/trixie');
+        
+        for($i=0; $i<2; $i++) {
+            $this->assertSame($root, $this->assets->webRoot());
+        }
+    }
+    
+    /**
+     * @covers ::config
+     * @covers ::<protected>
+     */
+    public function testConfig()
+    {
+        $this->assets = $this->assetsMock(array('assetsRoot'));
+        $assetsRoot = $this->prepareRoot('assetsRoot');
+        $config     = $this->prepareComponent('config');
+        
+        $this->method($assetsRoot, 'path', '/trixie', array(), 0);
+        $configData = $this->quickMock('\PHPixie\Config\Storages\Type\Directory');
+        
+        $this->method($config, 'directory', $configData, array('/trixie', 'config'), 0);
+        
+        for($i=0; $i<2; $i++) {
+            $this->assertSame($configData, $this->assets->config());
         }
     }
     
@@ -47,7 +82,9 @@ class AssetsTest extends \PHPixie\Tests\Framework\AssetsTest
             $methods = array();
         }
         
-        $methods[]= 'getProjectRootDirectory';
+        if(!in_array('getRootDirectory', $methods, true)) {
+            $methods[]= 'getRootDirectory';
+        }
         
         return $this->getMock(
             '\PHPixie\BundleFramework\Assets',

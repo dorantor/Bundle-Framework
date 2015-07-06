@@ -16,7 +16,7 @@ class Template extends \PHPixie\BundleFramework\FilesystemLocator
     {
         if($name === 'framework')
         {
-            return $this->assets->templateLocator();
+            return $this->assets->frameworkTemplateLocator();
         }
         
         return $this->getBundleLocator($name);

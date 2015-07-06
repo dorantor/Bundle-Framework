@@ -1,65 +1,58 @@
 <?php
 
-namespace PHPixie\Bundles;
+namespace PHPixie\BundleFramework;
 
 class Configuration implements \PHPixie\Framework\Configuration
 {
-    public function filesystemRoot()
+    protected $configSlices = array();
+    
+    public function databaseConfig()
     {
-        return $this->instance('filesystemRoot');
+        return $this->configSlice('database');
     }
     
-    public function httpProcessor()
+    public function ormConfig()
     {
-        return $this->bundles()->httpDispatcher();
+        return $this->configSlice('orm');
+    }
+    
+    public function routeConfig()
+    {
+        return $this->configSlice('route');
+    }
+    
+    public function templateConfig()
+    {
+        return $this->configSlice('template');
+    }
+    
+    public function frameworkConfig()
+    {
+        return $this->configSlice('framework');
     }
     
     public function ormWrappers()
     {
+        $bundles
         return $this->bundles()->ormWrappers();
     }
     
-    protected function buildRouteResolver()
+    public function templateFilesystemLocator()
     {
-        $components = $this->builder->components();
+    
+    }
+    
+    public function httpProcessor(){}
+    public function routeResolver(){}
+    public function filesystemLocator(){}
+    
+    protected function configSlice($key)
+    {
+        if(!array_key_exists($key, $this->configSlices)) {
+            $config = $this->assets()->config();
+            $this->configSlices[$key] = $config->slice($key);
+        }
         
-        return $components->route()->buildResolver(
-            $this->configData()->slice('route'),
-            $this->bundles()->routeResolver()
-        );   
+        return $this->configSlices[$key];
     }
-    
-    protected function buildFilesystemLocator()
-    {
-        $components = $this->builder->components();
-        
-        return $components->filesystem()->buildLocator(
-            $this->configData()->slice('filesystem'),
-            $this->bundles()->filesystemLocators()
-        );
-    }
-    
-    protected function buildConfigData()
-    {
-        $config = $this->builder->components->config();
-        $directory = $this->filesystemRoot()->path('assets');
-        return $config->directory($directory, 'config');
-    }
-    
-    protected function buildFilesystemRoot()
-    {
-        $rootDir = $this->getRootDirectory();
-        return $this->components->filesystem->root($rootDir);
-    }
-    
-    protected function getRootDirectory()
-    {
-        return realpath(__DIR__.'/../../../');
-    }
-    
-    protected function bundles()
-    {
-        return $this->builder->components()->bundles();
-    }
-    
 }
