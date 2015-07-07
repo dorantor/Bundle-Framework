@@ -50,21 +50,12 @@ class ConfigurationTest extends \PHPixie\Test\Testcase
     }
     
     /**
-     * @covers ::frameworkConfig
+     * @covers ::httpConfig
      * @covers ::<protected>
      */
-    public function testfFrameworkConfig()
+    public function testHttpConfig()
     {
-        $this->configSliceTest('framework');
-    }
-    
-    /**
-     * @covers ::routeTranslatorConfig
-     * @covers ::<protected>
-     */
-    public function testRouteTranslatorConfig()
-    {
-        $this->configSliceTest('routeTranslator', 'route');
+        $this->configSliceTest('http');
     }
     
     /**

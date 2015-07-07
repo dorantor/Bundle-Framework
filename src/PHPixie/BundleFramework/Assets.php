@@ -2,8 +2,17 @@
 
 namespace PHPixie\BundleFramework;
 
-abstract class Assets extends \PHPixie\Framework\Assets
+class Assets extends \PHPixie\Framework\Assets
 {
+    protected $rootDirectory;
+    
+    public function __construct($builder, $rootDirectory)
+    {
+        $this->rootDirectory = $rootDirectory;
+        
+        parent::__construct($builder);
+    }
+    
     public function root()
     {
         return $this->instance('root');
@@ -27,21 +36,21 @@ abstract class Assets extends \PHPixie\Framework\Assets
     protected function buildRoot()
     {
         return $this->buildFilesystemRoot(
-            $this->getRootDirectory()
+            $this->rootDirectory
         );
     }
     
     protected function buildAssetsRoot()
     {
         return $this->buildFilesystemRoot(
-            $this->Root()->path('assets')
+            $this->root()->path('assets')
         );
     }
     
     protected function buildWebRoot()
     {
         return $this->buildFilesystemRoot(
-            $this->Root()->path('web')
+            $this->root()->path('web')
         );
     }
     
@@ -54,6 +63,4 @@ abstract class Assets extends \PHPixie\Framework\Assets
             'config'
         );
     }
-    
-    abstract protected function getRootDirectory();
 }

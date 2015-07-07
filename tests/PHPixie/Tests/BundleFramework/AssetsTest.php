@@ -7,6 +7,8 @@ namespace PHPixie\Tests\BundleFramework;
  */
 class AssetsTest extends \PHPixie\Tests\Framework\AssetsTest
 {
+    protected $rootDirectory = '/trixie';
+    
     /**
      * @covers ::root
      * @covers ::<protected>
@@ -14,8 +16,7 @@ class AssetsTest extends \PHPixie\Tests\Framework\AssetsTest
     public function testRoot()
     {
         $this->assets = $this->assetsMock(array('getRootDirectory'));
-        $this->method($this->assets, 'getRootDirectory', '/trixie', array(), 0);
-        $root = $this->preparebuildFilesystemRoot('/trixie');
+        $root = $this->preparebuildFilesystemRoot($this->rootDirectory);
         
         for($i=0; $i<2; $i++) {
             $this->assertSame($root, $this->assets->root());
@@ -89,7 +90,10 @@ class AssetsTest extends \PHPixie\Tests\Framework\AssetsTest
         return $this->getMock(
             '\PHPixie\BundleFramework\Assets',
             $methods,
-            array($this->components)
+            array(
+                $this->components,
+                $this->rootDirectory
+            )
         );
     }
 }

@@ -17,7 +17,7 @@ class ComponentsTest extends \PHPixie\Tests\Framework\ComponentsTest
         $this->method($this->builder, 'bundles', $bundles, array(), 0);
         
         $this->assertComponent('bundles', '\PHPixie\Bundles', array(
-            'bundleRegistry'     => $bundles
+            'bundleRegistry' => $bundles
         ));
     }
     

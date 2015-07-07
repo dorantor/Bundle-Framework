@@ -17,14 +17,9 @@ class Configuration implements \PHPixie\Framework\Configuration
         return $this->instance('databaseConfig');
     }
     
-    public function frameworkConfig()
+    public function httpConfig()
     {
-        return $this->instance('frameworkConfig');
-    }
-    
-    public function routeTranslatorConfig()
-    {
-        return $this->instance('routeTranslatorConfig');
+        return $this->instance('httpConfig');
     }
     
     public function templateConfig()
@@ -82,14 +77,9 @@ class Configuration implements \PHPixie\Framework\Configuration
         return $this->configStorage()->slice('database');
     }
     
-    protected function buildFrameworkConfig()
+    protected function buildHttpConfig()
     {
-        return $this->configStorage()->slice('framework');
-    }
-    
-    protected function buildRouteTranslatorConfig()
-    {
-        return $this->configStorage()->slice('route');
+        return $this->configStorage()->slice('http');
     }
     
     protected function buildTemplateConfig()

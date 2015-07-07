@@ -275,12 +275,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPixie/Framework.git",
-                "reference": "5417fe2969dedf91ce282091f77f1db789ec1eee"
+                "reference": "39a730dc1d76fa57a564729819b20edc15b540bc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PHPixie/Framework/zipball/5417fe2969dedf91ce282091f77f1db789ec1eee",
-                "reference": "5417fe2969dedf91ce282091f77f1db789ec1eee",
+                "url": "https://api.github.com/repos/PHPixie/Framework/zipball/39a730dc1d76fa57a564729819b20edc15b540bc",
+                "reference": "39a730dc1d76fa57a564729819b20edc15b540bc",
                 "shasum": ""
             },
             "require": {
@@ -328,7 +328,7 @@
             "keywords": [
                 "processors"
             ],
-            "time": "2015-07-03 17:34:37"
+            "time": "2015-07-07 14:47:15"
         },
         {
             "name": "phpixie/http",
