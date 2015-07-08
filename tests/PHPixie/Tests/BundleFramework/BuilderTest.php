@@ -32,7 +32,7 @@ class BuilderTest extends \PHPixie\Tests\Framework\BuilderTest
     {
         $this->builder = $this->builderMock(array('buildBundles'));
         
-        $bundles = $this->quickMock('\PHPixie\BundleFramework\Bundles');
+        $bundles = $this->abstractMock('\PHPixie\BundleFramework\Bundles');
         $this->method($this->builder, 'buildBundles', $bundles, array(), 0);
         
         for($i=0; $i<2; $i++) {
