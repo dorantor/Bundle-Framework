@@ -154,7 +154,7 @@ class ConfigurationTest extends \PHPixie\Test\Testcase
     }
     
     /**
-     * @covers ::routeResolver
+     * @covers ::httpRouteResolver
      * @covers ::<protected>
      */
     public function testRouteResolver()
@@ -163,7 +163,7 @@ class ConfigurationTest extends \PHPixie\Test\Testcase
         $bundles = $this->prepareComponent('bundles');
         
         $configData = $this->getSliceData();
-        $this->method($this->configStorage, 'slice', $configData, array('route.resolver'), 0);
+        $this->method($this->configStorage, 'slice', $configData, array('http.resolver'), 0);
         
         $registry = $this->quickMock('\PHPixie\Route\Resolvers\Registry');
         $this->method($bundles, 'routeResolvers', $registry, array());
@@ -175,7 +175,7 @@ class ConfigurationTest extends \PHPixie\Test\Testcase
         ));
         
         for($i=0; $i<2; $i++) {
-            $this->assertSame($resolver, $this->configuration->routeResolver());
+            $this->assertSame($resolver, $this->configuration->httpRouteResolver());
         }
     }
     
@@ -188,21 +188,41 @@ class ConfigurationTest extends \PHPixie\Test\Testcase
         $filesystem = $this->prepareComponent('filesystem');
         $bundles    = $this->prepareComponent('bundles');
         
-        $configData = $this->getSliceData();
-        $this->method($this->configStorage, 'slice', $configData, array('template.locator'), 0);
+        $this->templateLocatorTest($filesystem, $bundles);
+        $this->templateLocatorTest($filesystem, $bundles, true);
+    }
+    
+    protected function templateLocatorTest($filesystem, $bundles, $withOverrides = false)
+    {
+        $this->configuration = $this->configurationMock();
         
         $registry = $this->quickMock('\PHPixie\Filesystem\Locators\Registry');
-        $this->method($bundles, 'templateLocators', $registry, array());
+        $this->method($bundles, 'templateLocators', $registry, array(), 0);
         
-        $locator = $this->quickMock('\PHPixie\Filesystem\Locators\Locator');
-        $this->method($filesystem, 'buildLocator', $locator, array(
-            $configData,
-            $registry
+        $overrideConfig = $this->getSliceData();
+        $this->method($this->configStorage, 'slice', $overrideConfig, array('template.locator'), 0);
+        
+        $type = $withOverrides ? 'directory' : null;
+        $this->method($overrideConfig, 'get', $type, array('type'), 0);
+        
+        $overridesLocator = null;
+        if($withOverrides) {
+            $overridesLocator = $this->quickMock('\PHPixie\Filesystem\Locators\Locator');
+            $this->method($filesystem, 'buildLocator', $overridesLocator, array(
+                $overrideConfig,
+                $registry
+            ), 0);
+        }
+        
+        
+        $locator = $this->configuration->templateLocator();
+        $this->assertInstance($locator, '\PHPixie\BundleFramework\Configuration\FilesystemLocator\Template', array(
+            'bundleLocators'   => $registry,
+            'assets'           => $this->assets,
+            'overridesLocator' => $overridesLocator
         ));
         
-        for($i=0; $i<2; $i++) {
-            $this->assertSame($locator, $this->configuration->templateLocator());
-        }
+        $this->assertSame($locator, $this->configuration->templateLocator());
     }
     
     protected function prepareConfigurationOrm()

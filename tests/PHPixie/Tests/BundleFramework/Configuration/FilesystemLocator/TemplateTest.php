@@ -45,7 +45,7 @@ class TemplateTest extends \PHPixie\Tests\BundleFramework\Configuration\Filesyst
         return new \PHPixie\BundleFramework\Configuration\FilesystemLocator\Template(
             $this->bundleLocators,
             $this->assets,
-            $withOverride ? $this->overrideLocator : null
+            $withOverride ? $this->overridesLocator : null
         );
     }
 }

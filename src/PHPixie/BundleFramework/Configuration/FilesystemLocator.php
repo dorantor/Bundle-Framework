@@ -5,18 +5,18 @@ namespace PHPixie\BundleFramework\Configuration;
 class FilesystemLocator implements \PHPixie\Filesystem\Locators\Locator
 {
     protected $bundleLocators;
-    protected $overrideLocator;
+    protected $overridesLocator;
     
-    public function __construct($bundleLocators, $overrideLocator = null)
+    public function __construct($bundleLocators, $overridesLocator = null)
     {
         $this->bundleLocators  = $bundleLocators;
-        $this->overrideLocator = $overrideLocator;
+        $this->overridesLocator = $overridesLocator;
     }
     
     public function locate($name, $isDirectory = false)
     {
-        if($this->overrideLocator !== null) {
-            $path = $this->overrideLocator->locate($name, $isDirectory);
+        if($this->overridesLocator !== null) {
+            $path = $this->overridesLocator->locate($name, $isDirectory);
             if($path !== null) {
                 return $path;
             }

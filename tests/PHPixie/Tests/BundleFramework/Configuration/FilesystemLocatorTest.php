@@ -8,14 +8,14 @@ namespace PHPixie\Tests\BundleFramework\Configuration;
 class FilesystemLocatorTest extends \PHPixie\Test\Testcase
 {
     protected $bundleLocators;
-    protected $overrideLocator;
+    protected $overridesLocator;
     
     protected $filesystemLocator;
     
     public function setUp()
     {
         $this->bundleLocators  = $this->bundleLocators();
-        $this->overrideLocator = $this->quickMock('\PHPixie\Filesystem\Locators\Locator');
+        $this->overridesLocator = $this->quickMock('\PHPixie\Filesystem\Locators\Locator');
         
         $this->filesystemLocator = $this->filesystemLocator();
     }
@@ -82,7 +82,7 @@ class FilesystemLocatorTest extends \PHPixie\Test\Testcase
         $this->filesystemLocator = $this->filesystemLocator($withOverride);
         if($withOverride) {
             $override = $overrideExists ? '/fairy' : null;
-            $this->method($this->overrideLocator, 'locate', $override, array($name, $isDirectory), 0);
+            $this->method($this->overridesLocator, 'locate', $override, array($name, $isDirectory), 0);
             if($overrideExists) {
                 return '/fairy';
             }
@@ -129,7 +129,7 @@ class FilesystemLocatorTest extends \PHPixie\Test\Testcase
     {
         return new \PHPixie\BundleFramework\Configuration\FilesystemLocator(
             $this->bundleLocators,
-            $withOverride ? $this->overrideLocator : null
+            $withOverride ? $this->overridesLocator : null
         );
     }
 }

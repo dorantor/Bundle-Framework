@@ -52,9 +52,9 @@ class Configuration implements \PHPixie\Framework\Configuration
         return $this->instance('httpProcessor');
     }
     
-    public function routeResolver()
+    public function httpRouteResolver()
     {
-        return $this->instance('routeResolver');
+        return $this->instance('httpRouteResolver');
     }
     
     public function templateLocator()
@@ -107,12 +107,12 @@ class Configuration implements \PHPixie\Framework\Configuration
         );
     }
     
-    protected function buildRouteResolver()
+    protected function buildHttpRouteResolver()
     {
         $components = $this->builder->components();
         
         return $components->route()->buildResolver(
-            $this->configStorage()->slice('route.resolver'),
+            $this->configStorage()->slice('http.resolver'),
             $components->bundles()->routeResolvers()
         );
     }
@@ -120,10 +120,22 @@ class Configuration implements \PHPixie\Framework\Configuration
     protected function buildTemplateLocator()
     {
         $components = $this->builder->components();
+        $bundleLocators = $components->bundles()->templateLocators();
         
-        return $components->filesystem()->buildLocator(
-            $this->configStorage()->slice('template.locator'),
-            $components->bundles()->templateLocators()
+        $overridesLocator = null;
+        
+        $overridesConfig = $this->configStorage()->slice('template.locator');
+        if($overridesConfig->get('type') !== null) {
+            $overridesLocator = $components->filesystem()->buildLocator(
+                $overridesConfig,
+                $bundleLocators
+            );
+        }
+        
+        return new Configuration\FilesystemLocator\Template(
+            $bundleLocators,
+            $this->builder->assets(),
+            $overridesLocator    
         );
     }
     
