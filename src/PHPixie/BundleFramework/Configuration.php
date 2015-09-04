@@ -47,6 +47,17 @@ class Configuration implements \PHPixie\Framework\Configuration
         return $this->orm()->wrappers();
     }
     
+    public function authConfig()
+    {
+        return $this->instance('authConfig');
+    }
+    
+    public function authRepositories()
+    {
+        $components = $this->builder->components();
+        return $components->bundles()->authRepositories();
+    }
+    
     public function httpProcessor()
     {
         return $this->instance('httpProcessor');
@@ -85,6 +96,11 @@ class Configuration implements \PHPixie\Framework\Configuration
     protected function buildTemplateConfig()
     {
         return $this->configStorage()->slice('template');
+    }
+    
+    protected function buildAuthConfig()
+    {
+        return $this->configStorage()->slice('auth');
     }
     
     protected function buildOrm()
