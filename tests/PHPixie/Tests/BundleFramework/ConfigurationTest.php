@@ -131,6 +131,25 @@ class ConfigurationTest extends \PHPixie\Test\Testcase
     }
     
     /**
+     * @covers ::authConfig
+     * @covers ::<protected>
+     */
+    public function testAuthConfig()
+    {
+        $this->configSliceTest('auth');
+    }
+    
+    /**
+     * @covers ::authRepositories
+     * @covers ::<protected>
+     */
+    public function testAuthRepositories()
+    {
+        $bundlesAuth = $this->prepareBundlesAuth();
+        $this->assertSame($bundlesAuth, $this->configuration->authRepositories());
+    }
+    
+    /**
      * @covers ::httpProcessor
      * @covers ::<protected>
      */
@@ -214,7 +233,6 @@ class ConfigurationTest extends \PHPixie\Test\Testcase
             ), 0);
         }
         
-        
         $locator = $this->configuration->templateLocator();
         $this->assertInstance($locator, '\PHPixie\BundleFramework\Configuration\FilesystemLocator\Template', array(
             'bundleLocators'   => $registry,
@@ -258,6 +276,16 @@ class ConfigurationTest extends \PHPixie\Test\Testcase
         $mock = $this->quickMock($class);
         $this->method($this->components, $name, $mock, array());
         return $mock;
+    }
+    
+    protected function prepareBundlesAuth()
+    {
+        $bundles = $this->prepareComponent('bundles');
+        
+        $bundlesAuth = $this->quickMock('\PHPixie\Bundles\Auth');
+        $this->method($bundles, 'auth', $bundlesAuth, array());
+        
+        return $bundlesAuth;
     }
     
     protected function getSliceData()
