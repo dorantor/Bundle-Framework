@@ -55,7 +55,7 @@ class Configuration implements \PHPixie\Framework\Configuration
     public function authRepositories()
     {
         $components = $this->builder->components();
-        return $components->bundles()->authRepositories();
+        return $components->bundles()->auth();
     }
     
     public function httpProcessor()
