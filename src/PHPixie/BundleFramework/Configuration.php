@@ -12,6 +12,11 @@ class Configuration implements \PHPixie\Framework\Configuration
         $this->builder = $builder;
     }
     
+    public function bundlesConfig()
+    {
+        return $this->instance('bundlesConfig');
+    }
+    
     public function databaseConfig()
     {
         return $this->instance('databaseConfig');
@@ -81,6 +86,11 @@ class Configuration implements \PHPixie\Framework\Configuration
         }
         
         return $this->instances[$name];
+    }
+    
+    protected function buildBundlesConfig()
+    {
+        return $this->configStorage()->slice('bundles');
     }
     
     protected function buildDatabaseConfig()

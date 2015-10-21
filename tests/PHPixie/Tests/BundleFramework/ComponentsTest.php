@@ -14,10 +14,13 @@ class ComponentsTest extends \PHPixie\Tests\Framework\ComponentsTest
     public function testBundles()
     {
         $bundles = $this->abstractMock('\PHPixie\BundleFramework\Bundles');
-        $this->method($this->builder, 'bundles', $bundles, array(), 0);
+        $this->method($this->builder, 'bundles', $bundles, array());
+        
+        $configData = $this->prepareConfig('bundles');
         
         $this->assertComponent('bundles', '\PHPixie\Bundles', array(
-            'bundleRegistry' => $bundles
+            //'bundleRegistry' => $bundles,
+            //'configData'     => $configData
         ));
     }
     

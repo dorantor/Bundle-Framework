@@ -11,8 +11,11 @@ class Components extends \PHPixie\Framework\Components
     
     protected function buildBundles()
     {
+        $configuration = $this->builder->configuration();
+        
         return new \PHPixie\Bundles(
-            $this->builder->bundles()
+            $this->builder->bundles(),
+            $configuration->bundlesConfig()
         );
     }
 }

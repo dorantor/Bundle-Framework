@@ -41,6 +41,15 @@ class ConfigurationTest extends \PHPixie\Test\Testcase
     }
     
     /**
+     * @covers ::bundlesConfig
+     * @covers ::<protected>
+     */
+    public function testBundlesConfig()
+    {
+        $this->configSliceTest('bundles');
+    }
+    
+    /**
      * @covers ::databaseConfig
      * @covers ::<protected>
      */
