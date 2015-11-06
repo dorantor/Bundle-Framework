@@ -191,7 +191,7 @@ class ConfigurationTest extends \PHPixie\Test\Testcase
         $bundles = $this->prepareComponent('bundles');
         
         $configData = $this->getSliceData();
-        $this->method($this->configStorage, 'slice', $configData, array('http.resolver'), 0);
+        $this->method($this->configStorage, 'arraySlice', $configData, array('http.resolver'), 0);
         
         $registry = $this->quickMock('\PHPixie\Route\Resolvers\Registry');
         $this->method($bundles, 'routeResolvers', $registry, array());
@@ -228,7 +228,7 @@ class ConfigurationTest extends \PHPixie\Test\Testcase
         $this->method($bundles, 'templateLocators', $registry, array(), 0);
         
         $overrideConfig = $this->getSliceData();
-        $this->method($this->configStorage, 'slice', $overrideConfig, array('template.locator'), 0);
+        $this->method($this->configStorage, 'arraySlice', $overrideConfig, array('template.locator'), 0);
         
         $type = $withOverrides ? 'directory' : null;
         $this->method($overrideConfig, 'get', $type, array('type'), 0);
@@ -266,7 +266,7 @@ class ConfigurationTest extends \PHPixie\Test\Testcase
         }
         
         $slice = $this->getSliceData();
-        $this->method($this->configStorage, 'slice', $slice, array($key), 0);
+        $this->method($this->configStorage, 'arraySlice', $slice, array($key), 0);
         
         $method = $name.'Config';
         for($i=0; $i<2; $i++) {

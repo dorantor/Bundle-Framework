@@ -90,27 +90,27 @@ class Configuration implements \PHPixie\Framework\Configuration
     
     protected function buildBundlesConfig()
     {
-        return $this->configStorage()->slice('bundles');
+        return $this->configStorage()->arraySlice('bundles');
     }
     
     protected function buildDatabaseConfig()
     {
-        return $this->configStorage()->slice('database');
+        return $this->configStorage()->arraySlice('database');
     }
     
     protected function buildHttpConfig()
     {
-        return $this->configStorage()->slice('http');
+        return $this->configStorage()->arraySlice('http');
     }
     
     protected function buildTemplateConfig()
     {
-        return $this->configStorage()->slice('template');
+        return $this->configStorage()->arraySlice('template');
     }
     
     protected function buildAuthConfig()
     {
-        return $this->configStorage()->slice('auth');
+        return $this->configStorage()->arraySlice('auth');
     }
     
     protected function buildOrm()
@@ -138,7 +138,7 @@ class Configuration implements \PHPixie\Framework\Configuration
         $components = $this->builder->components();
         
         return $components->route()->buildResolver(
-            $this->configStorage()->slice('http.resolver'),
+            $this->configStorage()->arraySlice('http.resolver'),
             $components->bundles()->routeResolvers()
         );
     }
@@ -150,7 +150,7 @@ class Configuration implements \PHPixie\Framework\Configuration
         
         $overridesLocator = null;
         
-        $overridesConfig = $this->configStorage()->slice('template.locator');
+        $overridesConfig = $this->configStorage()->arraySlice('template.locator');
         if($overridesConfig->get('type') !== null) {
             $overridesLocator = $components->filesystem()->buildLocator(
                 $overridesConfig,
@@ -161,7 +161,7 @@ class Configuration implements \PHPixie\Framework\Configuration
         return new Configuration\FilesystemLocator\Template(
             $bundleLocators,
             $this->builder->assets(),
-            $overridesLocator    
+            $overridesLocator
         );
     }
     
