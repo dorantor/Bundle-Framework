@@ -2,22 +2,42 @@
 
 namespace PHPixie\BundleFramework;
 
+/**
+ * Bundle registry
+ */
 abstract class Bundles implements \PHPixie\Bundles\Registry
 {
+    /**
+     * @var Builder
+     */
     protected $builder;
+
+    /**
+     * @var array
+     */
     protected $bundles;
-    
+
+    /**
+     * Constructor
+     * @param Builder $builder
+     */
     public function __construct($builder)
     {
         $this->builder = $builder;
     }
-    
+
+    /**
+     * @inheritdoc
+     */
     public function bundles()
     {
         $this->requireBundles();
         return $this->bundles;
     }
-    
+
+    /**
+     * @inheritdoc
+     */
     public function get($name, $isRequired = true)
     {
         $this->requireBundles();
@@ -31,8 +51,11 @@ abstract class Bundles implements \PHPixie\Bundles\Registry
         }
         
         throw new \PHPixie\BundleFramework\Exception("Bundle '$name' does not exist");
-    }    
-    
+    }
+
+    /**
+     * @return void
+     */
     protected function requireBundles()
     {
         if($this->bundles !== null) {
@@ -46,6 +69,10 @@ abstract class Bundles implements \PHPixie\Bundles\Registry
         
         $this->bundles = $bundles;
     }
-    
+
+    /**
+     * Build bundles
+     * @return array
+     */
     abstract protected function buildBundles();
 }

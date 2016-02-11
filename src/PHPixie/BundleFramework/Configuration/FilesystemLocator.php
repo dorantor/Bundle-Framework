@@ -2,17 +2,37 @@
 
 namespace PHPixie\BundleFramework\Configuration;
 
+use PHPixie\Filesystem\Locators\Locator;
+
+/**
+ * Merges filesystem locators
+ */
 class FilesystemLocator implements \PHPixie\Filesystem\Locators\Locator
 {
+    /**
+     * @var \PHPixie\Bundles\FilesystemLocators
+     */
     protected $bundleLocators;
+
+    /**
+     * @var Locator
+     */
     protected $overridesLocator;
-    
+
+    /**
+     * Constructor
+     * @param \PHPixie\Bundles\FilesystemLocators $bundleLocators
+     * @param Locator|null $overridesLocator
+     */
     public function __construct($bundleLocators, $overridesLocator = null)
     {
         $this->bundleLocators  = $bundleLocators;
         $this->overridesLocator = $overridesLocator;
     }
-    
+
+    /**
+     * @inheritdoc
+     */
     public function locate($name, $isDirectory = false)
     {
         if($this->overridesLocator !== null) {
@@ -37,12 +57,20 @@ class FilesystemLocator implements \PHPixie\Filesystem\Locators\Locator
         
         return $locator->locate($name, $isDirectory);
     }
-    
+
+    /**
+     * @param string $name
+     * @return Locator
+     */
     protected function getLocator($name)
     {
         return $this->getBundleLocator($name);
     }
-    
+
+    /**
+     * @param string $name
+     * @return Locator
+     */
     protected function getBundleLocator($name)
     {
         return $this->bundleLocators->bundleLocator($name, false);
