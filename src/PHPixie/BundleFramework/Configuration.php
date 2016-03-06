@@ -61,6 +61,14 @@ class Configuration implements \PHPixie\Framework\Configuration
     {
         return $this->instance('templateConfig');
     }
+    
+    /**
+     * @inheritdoc
+     */
+    public function imageDefaultDriver()
+    {
+        return $this->instance('imageDefaultDriver');
+    }
 
     /**
      * @inheritdoc
@@ -188,6 +196,14 @@ class Configuration implements \PHPixie\Framework\Configuration
     protected function buildAuthConfig()
     {
         return $this->configStorage()->arraySlice('auth');
+    }
+    
+    /**
+     * @return string
+     */
+    protected function buildImageDefaultDriver()
+    {
+        return $this->configStorage()->get('image.defaultDriver', 'gd');
     }
 
     /**
