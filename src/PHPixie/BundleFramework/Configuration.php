@@ -30,6 +30,15 @@ class Configuration implements \PHPixie\Framework\Configuration
     }
 
     /**
+     * Configuration
+     * @return Data
+     */
+    public function config()
+    {
+        return $this->instance('config');
+    }
+
+    /**
      * Bundles configuration
      * @return Data
      */
@@ -61,7 +70,7 @@ class Configuration implements \PHPixie\Framework\Configuration
     {
         return $this->instance('templateConfig');
     }
-    
+
     /**
      * @inheritdoc
      */
@@ -154,8 +163,33 @@ class Configuration implements \PHPixie\Framework\Configuration
             $method = 'build'.ucfirst($name);
             $this->instances[$name] = $this->$method();
         }
-        
+
         return $this->instances[$name];
+    }
+
+    /**
+     * @return Data
+     */
+    protected function buildConfig()
+    {
+        $assets = $this->builder->assets();
+        $configStorage = $assets->configStorage();
+
+        $parameterStorage = $assets->parameterStorage();
+        if($parameterStorage === null) {
+            return $configStorage;
+        }
+
+        $configOverlay = $parameterStorage->get('configOverlay');
+        if($configOverlay === null) {
+            return $configStorage;
+        }
+
+        $slice = $this->builder->components()->slice();
+        return $slice->mergeData(
+            $configStorage,
+            $configStorage->slice($configOverlay)
+        );
     }
 
     /**
@@ -163,7 +197,7 @@ class Configuration implements \PHPixie\Framework\Configuration
      */
     protected function buildBundlesConfig()
     {
-        return $this->configStorage()->arraySlice('bundles');
+        return $this->config()->arraySlice('bundles');
     }
 
     /**
@@ -171,7 +205,7 @@ class Configuration implements \PHPixie\Framework\Configuration
      */
     protected function buildDatabaseConfig()
     {
-        return $this->configStorage()->arraySlice('database');
+        return $this->config()->arraySlice('database');
     }
 
     /**
@@ -179,7 +213,7 @@ class Configuration implements \PHPixie\Framework\Configuration
      */
     protected function buildHttpConfig()
     {
-        return $this->configStorage()->arraySlice('http');
+        return $this->config()->arraySlice('http');
     }
 
     /**
@@ -187,7 +221,7 @@ class Configuration implements \PHPixie\Framework\Configuration
      */
     protected function buildTemplateConfig()
     {
-        return $this->configStorage()->arraySlice('template');
+        return $this->config()->arraySlice('template');
     }
 
     /**
@@ -195,15 +229,15 @@ class Configuration implements \PHPixie\Framework\Configuration
      */
     protected function buildAuthConfig()
     {
-        return $this->configStorage()->arraySlice('auth');
+        return $this->config()->arraySlice('auth');
     }
-    
+
     /**
      * @return string
      */
     protected function buildImageDefaultDriver()
     {
-        return $this->configStorage()->get('image.defaultDriver', 'gd');
+        return $this->config()->get('image.defaultDriver', 'gd');
     }
 
     /**
@@ -212,7 +246,7 @@ class Configuration implements \PHPixie\Framework\Configuration
     protected function buildOrm()
     {
         $components = $this->builder->components();
-        
+
         return new Configuration\ORM(
             $components->slice(),
             $components->bundles()->orm()
@@ -225,7 +259,7 @@ class Configuration implements \PHPixie\Framework\Configuration
     protected function buildHttpProcessor()
     {
         $components = $this->builder->components();
-        
+
         return $components->httpProcessors()->attributeRegistryDispatcher(
             $components->bundles()->httpProcessors(),
             'bundle'
@@ -238,9 +272,9 @@ class Configuration implements \PHPixie\Framework\Configuration
     protected function buildHttpRouteResolver()
     {
         $components = $this->builder->components();
-        
+
         return $components->route()->buildResolver(
-            $this->configStorage()->arraySlice('http.resolver'),
+            $this->config()->arraySlice('http.resolver'),
             $components->bundles()->routeResolvers()
         );
     }
@@ -252,29 +286,21 @@ class Configuration implements \PHPixie\Framework\Configuration
     {
         $components = $this->builder->components();
         $bundleLocators = $components->bundles()->templateLocators();
-        
+
         $overridesLocator = null;
-        
-        $overridesConfig = $this->configStorage()->arraySlice('template.locator');
+
+        $overridesConfig = $this->config()->arraySlice('template.locator');
         if($overridesConfig->get('type') !== null) {
             $overridesLocator = $components->filesystem()->buildLocator(
                 $overridesConfig,
                 $bundleLocators
             );
         }
-        
+
         return new Configuration\FilesystemLocator\Template(
             $bundleLocators,
             $this->builder->assets(),
             $overridesLocator
         );
-    }
-
-    /**
-     * @return \PHPixie\Config\Storages\Type\Directory
-     */
-    protected function configStorage()
-    {
-        return $this->builder->assets()->configStorage();
     }
 }

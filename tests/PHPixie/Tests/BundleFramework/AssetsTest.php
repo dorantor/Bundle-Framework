@@ -8,7 +8,21 @@ namespace PHPixie\Tests\BundleFramework;
 class AssetsTest extends \PHPixie\Tests\Framework\AssetsTest
 {
     protected $rootDirectory = '/trixie';
-    
+    protected $parameterFile;
+
+    public function setUp()
+    {
+        $this->parameterFile = sys_get_temp_dir().'/params.php';
+        parent::setUp();
+    }
+
+    public function tearDown()
+    {
+        if(file_exists($this->parameterFile)) {
+            unlink($this->parameterFile);
+        }
+    }
+
     /**
      * @covers ::root
      * @covers ::<protected>
@@ -61,7 +75,7 @@ class AssetsTest extends \PHPixie\Tests\Framework\AssetsTest
      * @covers ::configStorage
      * @covers ::<protected>
      */
-    public function testConfig()
+    public function testConfigStorage()
     {
         $this->assets = $this->assetsMock(array('assetsRoot'));
         $assetsRoot = $this->prepareRoot('assetsRoot');
@@ -74,6 +88,44 @@ class AssetsTest extends \PHPixie\Tests\Framework\AssetsTest
         
         for($i=0; $i<2; $i++) {
             $this->assertSame($configData, $this->assets->configStorage());
+        }
+    }
+
+    /**
+     * @covers ::parameterStorage
+     * @covers ::<protected>
+     */
+    public function testNullParameterStorage()
+    {
+        $this->assets = $this->assetsMock(array('assetsRoot'));
+        $assetsRoot = $this->prepareRoot('assetsRoot');
+
+        $this->method($assetsRoot, 'path', 'non-existing', array('parameters.php'), 0);
+
+        for($i=0; $i<2; $i++) {
+            $this->assertSame(null, $this->assets->parameterStorage());
+        }
+    }
+
+    /**
+     * @covers ::parameterStorage
+     * @covers ::<protected>
+     */
+    public function testParameterStorage()
+    {
+        file_put_contents($this->parameterFile, '');
+
+        $this->assets = $this->assetsMock(array('assetsRoot'));
+        $assetsRoot = $this->prepareRoot('assetsRoot');
+        $config     = $this->prepareComponent('config');
+
+        $this->method($assetsRoot, 'path', $this->parameterFile, array('parameters.php'), 0);
+        $configData = $this->quickMock('\PHPixie\Config\Storages\Type\File');
+
+        $this->method($config, 'file', $configData, array($this->parameterFile), 0);
+
+        for($i=0; $i<2; $i++) {
+            $this->assertSame($configData, $this->assets->parameterStorage());
         }
     }
     

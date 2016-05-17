@@ -219,7 +219,48 @@ class ConfigurationTest extends \PHPixie\Test\Testcase
         $this->templateLocatorTest($filesystem, $bundles);
         $this->templateLocatorTest($filesystem, $bundles, true);
     }
-    
+
+    public function testConfigNoParameters()
+    {
+        $this->method($this->assets, 'parameterStorage', null, array());
+
+        for($i=0; $i<2; $i++) {
+            $this->assertSame($this->configStorage, $this->configuration->config());
+        }
+    }
+
+    public function testConfigNoOverlay()
+    {
+        $parameterStorage = $this->getSliceData();
+        $this->method($this->assets, 'parameterStorage', $parameterStorage, array());
+
+        $this->method($parameterStorage, 'get', null, array('configOverlay'));
+
+        for($i=0; $i<2; $i++) {
+            $this->assertSame($this->configStorage, $this->configuration->config());
+        }
+    }
+
+    public function testConfig()
+    {
+        $parameterStorage = $this->getSliceData();
+        $this->method($this->assets, 'parameterStorage', $parameterStorage, array());
+
+        $this->method($parameterStorage, 'get', 'env.dev', array('configOverlay'));
+
+        $overlay = $this->getSliceData();
+        $this->method($this->configStorage, 'slice', $overlay, array('env.dev'), 0);
+
+        $config = $this->getSliceData();
+        $slice = $this->prepareComponent('slice');
+
+        $this->method($slice, 'mergeData', $config, array($this->configStorage, $overlay), 0);
+
+        for($i=0; $i<2; $i++) {
+            $this->assertSame($config, $this->configuration->config());
+        }
+    }
+
     protected function templateLocatorTest($filesystem, $bundles, $withOverrides = false)
     {
         $this->configuration = $this->configurationMock();
@@ -261,6 +302,8 @@ class ConfigurationTest extends \PHPixie\Test\Testcase
     
     protected function configSliceTest($name, $key = null)
     {
+        $this->method($this->assets, 'parameterStorage', null, array());
+
         if($key === null) {
             $key = $name;
         }

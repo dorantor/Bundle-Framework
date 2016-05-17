@@ -22,7 +22,7 @@ class Assets extends \PHPixie\Framework\Assets
     public function __construct($components, $rootDirectory)
     {
         $this->rootDirectory = $rootDirectory;
-        
+
         parent::__construct($components);
     }
 
@@ -63,6 +63,15 @@ class Assets extends \PHPixie\Framework\Assets
     }
 
     /**
+     * Parameter storage
+     * @return \PHPixie\Config\Storages\Type\File
+     */
+    public function parameterStorage()
+    {
+        return $this->instance('parameterStorage');
+    }
+
+    /**
      * @return Root
      */
     protected function buildRoot()
@@ -98,10 +107,26 @@ class Assets extends \PHPixie\Framework\Assets
     protected function buildConfigStorage()
     {
         $config = $this->components->config();
-        
+
         return $config->directory(
             $this->assetsRoot()->path(),
-            'config'
+            'config',
+            'php',
+            $this->parameterStorage()
         );
+    }
+
+    /**
+     * @return \PHPixie\Config\Storages\Type\File
+     */
+    protected function buildParameterStorage()
+    {
+        $file = $this->assetsRoot()->path('parameters.php');
+        if(!file_exists($file)) {
+            return null;
+        }
+
+        $config = $this->components->config();
+        return $config->file($file);
     }
 }
