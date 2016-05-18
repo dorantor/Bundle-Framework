@@ -122,9 +122,6 @@ class Assets extends \PHPixie\Framework\Assets
     protected function buildParameterStorage()
     {
         $file = $this->assetsRoot()->path('parameters.php');
-        if(!file_exists($file)) {
-            return null;
-        }
 
         $config = $this->components->config();
         return $config->file($file);

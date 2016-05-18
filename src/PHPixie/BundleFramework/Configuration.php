@@ -174,11 +174,7 @@ class Configuration implements \PHPixie\Framework\Configuration
     {
         $assets = $this->builder->assets();
         $configStorage = $assets->configStorage();
-
         $parameterStorage = $assets->parameterStorage();
-        if($parameterStorage === null) {
-            return $configStorage;
-        }
 
         $configOverlay = $parameterStorage->get('configOverlay');
         if($configOverlay === null) {

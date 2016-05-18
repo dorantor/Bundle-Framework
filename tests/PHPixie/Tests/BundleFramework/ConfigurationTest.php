@@ -14,7 +14,8 @@ class ConfigurationTest extends \PHPixie\Test\Testcase
     protected $components;
     
     protected $configStorage;
-    
+    protected $parameterStorage;
+
     public function setUp()
     {
         $this->builder = $this->builder();
@@ -25,7 +26,10 @@ class ConfigurationTest extends \PHPixie\Test\Testcase
         
         $this->configStorage = $this->quickMock('\PHPixie\Config\Storages\Storage');
         $this->method($this->assets, 'configStorage', $this->configStorage, array());
-        
+
+        $this->parameterStorage = $this->getSliceData();
+        $this->method($this->assets, 'parameterStorage', $this->parameterStorage, array());
+
         $this->components = $this->components();
         $this->method($this->builder, 'components', $this->components, array());
     }
@@ -220,15 +224,10 @@ class ConfigurationTest extends \PHPixie\Test\Testcase
         $this->templateLocatorTest($filesystem, $bundles, true);
     }
 
-    public function testConfigNoParameters()
-    {
-        $this->method($this->assets, 'parameterStorage', null, array());
-
-        for($i=0; $i<2; $i++) {
-            $this->assertSame($this->configStorage, $this->configuration->config());
-        }
-    }
-
+    /**
+     * @covers ::config
+     * @covers ::<protected>
+     */
     public function testConfigNoOverlay()
     {
         $parameterStorage = $this->getSliceData();
@@ -241,15 +240,16 @@ class ConfigurationTest extends \PHPixie\Test\Testcase
         }
     }
 
+    /**
+     * @covers ::config
+     * @covers ::<protected>
+     */
     public function testConfig()
     {
-        $parameterStorage = $this->getSliceData();
-        $this->method($this->assets, 'parameterStorage', $parameterStorage, array());
-
-        $this->method($parameterStorage, 'get', 'env.dev', array('configOverlay'));
+        $this->method($this->parameterStorage, 'get', 'env.dev', array('configOverlay'));
 
         $overlay = $this->getSliceData();
-        $this->method($this->configStorage, 'slice', $overlay, array('env.dev'), 0);
+        $this->method($this->configStorage,  'slice', $overlay, array('env.dev'), 0);
 
         $config = $this->getSliceData();
         $slice = $this->prepareComponent('slice');
@@ -302,7 +302,10 @@ class ConfigurationTest extends \PHPixie\Test\Testcase
     
     protected function configSliceTest($name, $key = null)
     {
-        $this->method($this->assets, 'parameterStorage', null, array());
+        $parameterStorage = $this->getSliceData();
+        $this->method($this->assets, 'parameterStorage', $parameterStorage, array());
+
+        $this->method($parameterStorage, 'get', null, array('configOverlay'));
 
         if($key === null) {
             $key = $name;
