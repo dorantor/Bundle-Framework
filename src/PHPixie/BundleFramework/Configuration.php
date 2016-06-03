@@ -123,6 +123,14 @@ class Configuration implements \PHPixie\Framework\Configuration
     /**
      * @inheritdoc
      */
+    public function socialConfig()
+    {
+        return $this->instance('socialConfig');
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function authRepositories()
     {
         $components = $this->builder->components();
@@ -234,6 +242,14 @@ class Configuration implements \PHPixie\Framework\Configuration
     protected function buildImageDefaultDriver()
     {
         return $this->config()->get('image.defaultDriver', 'gd');
+    }
+
+    /**
+     * @return Data
+     */
+    protected function buildSocialConfig()
+    {
+        return $this->config()->arraySlice('social');
     }
 
     /**
