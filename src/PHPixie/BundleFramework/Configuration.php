@@ -160,6 +160,16 @@ class Configuration implements \PHPixie\Framework\Configuration
     {
         return $this->instance('templateLocator');
     }
+    
+    /**
+     * @inheritdoc
+     */
+    public function consoleProvider()
+    {
+        $components = $this->builder->components();
+        
+        return $components->bundles()->console();
+    }
 
     /**
      * @param string $name
