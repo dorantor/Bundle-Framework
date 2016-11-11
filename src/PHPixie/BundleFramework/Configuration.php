@@ -127,6 +127,22 @@ class Configuration implements \PHPixie\Framework\Configuration
     {
         return $this->instance('socialConfig');
     }
+    
+    /**
+     * @inheritdoc
+     */
+    public function migrateRoot()
+    {
+        return $this->builder->assets()->migrateRoot();
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public function migrateConfig()
+    {
+        return $this->instance('migrateConfig');
+    }
 
     /**
      * @inheritdoc
@@ -260,6 +276,14 @@ class Configuration implements \PHPixie\Framework\Configuration
     protected function buildSocialConfig()
     {
         return $this->config()->arraySlice('social');
+    }
+    
+    /**
+     * @return Data
+     */
+    protected function buildMigrateConfig()
+    {
+        return $this->config()->arraySlice('migrate');
     }
 
     /**

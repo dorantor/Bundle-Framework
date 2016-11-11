@@ -52,6 +52,15 @@ class Assets extends \PHPixie\Framework\Assets
     {
         return $this->instance('webRoot');
     }
+    
+    /**
+     * Migrate folder
+     * @return Root
+     */
+    public function migrateRoot()
+    {
+        return $this->instance('migrateRoot');
+    }
 
     /**
      * Configuration storage
@@ -100,7 +109,17 @@ class Assets extends \PHPixie\Framework\Assets
             $this->root()->path('web')
         );
     }
-
+    
+    /**
+     * @return Root
+     */
+    protected function buildMigrateRoot()
+    {
+        return $this->buildFilesystemRoot(
+            $this->assetsRoot()->path('migrate')
+        );
+    }
+    
     /**
      * @return \PHPixie\Config\Storages\Type\Directory
      */
