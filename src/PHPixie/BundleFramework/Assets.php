@@ -63,6 +63,15 @@ class Assets extends \PHPixie\Framework\Assets
     }
 
     /**
+     * Cache folder
+     * @return Root
+     */
+    public function cacheRoot()
+    {
+        return $this->instance('cacheRoot');
+    }
+
+    /**
      * Configuration storage
      * @return \PHPixie\Config\Storages\Type\Directory
      */
@@ -117,6 +126,16 @@ class Assets extends \PHPixie\Framework\Assets
     {
         return $this->buildFilesystemRoot(
             $this->assetsRoot()->path('migrate')
+        );
+    }
+
+    /**
+     * @return Root
+     */
+    protected function buildCacheRoot()
+    {
+        return $this->buildFilesystemRoot(
+            $this->assetsRoot()->path('cache')
         );
     }
     

@@ -147,6 +147,22 @@ class Configuration implements \PHPixie\Framework\Configuration
     /**
      * @inheritdoc
      */
+    public function cacheRoot()
+    {
+        return $this->builder->assets()->cacheRoot();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function cacheConfig()
+    {
+        return $this->instance('cacheConfig');
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function authRepositories()
     {
         $components = $this->builder->components();
@@ -185,6 +201,14 @@ class Configuration implements \PHPixie\Framework\Configuration
         $components = $this->builder->components();
         
         return $components->bundles()->console();
+    }
+    
+    /**
+     * @inheritdoc
+     */
+    public function logger()
+    {
+        return $this->builder->logger();
     }
 
     /**
@@ -284,6 +308,14 @@ class Configuration implements \PHPixie\Framework\Configuration
     protected function buildMigrateConfig()
     {
         return $this->config()->arraySlice('migrate');
+    }
+
+    /**
+     * @return Data
+     */
+    protected function buildCacheConfig()
+    {
+        return $this->config()->arraySlice('cache');
     }
 
     /**
