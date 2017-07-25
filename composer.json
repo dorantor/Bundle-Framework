@@ -12,9 +12,19 @@
             "homepage": "http://dracony.org"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/dorantor/PHPixie3-Framework.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/dorantor/PHPixie3-Database.git"
+        }
+    ],
     "require": {
         "phpixie/bundles": "~3.0",
-        "phpixie/framework": "~3.0",
+        "phpixie/framework": "dev-dorantor@dev",
         "phpixie/config": "~3.1"
     },
     "require-dev": {
